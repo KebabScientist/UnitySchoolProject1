@@ -8,8 +8,8 @@ public class ObjectSpawner : MonoBehaviour
     public float delay = 1;
 
 
-    public int start_x;
-    public int end_x;
+    public int start_z;
+    public int end_z;
 
     bool spawn = true;
 
@@ -26,22 +26,9 @@ public class ObjectSpawner : MonoBehaviour
         {
             spawn = false;
             yield return new WaitForSeconds(delay);
-            int x = Random.Range(start_x, end_x);
-            GameObject obstacle_clone = Instantiate(obstacle, new Vector3(transform.position.x, 0, x), Quaternion.identity);
+            int z = Random.Range(start_z, end_z);
+            GameObject obstacle_clone = Instantiate(obstacle, new Vector3(transform.position.x, 6, z), Quaternion.identity);
             obstacle_clone.SetActive(true);
-
-            float initialXPos = obstacle_clone.transform.position.x;
-            float distanceThreshold = 50.0f; // The distance at which the obstacle should be destroyed
-
-            while (obstacle_clone != null && obstacle_clone.transform.position.x - initialXPos < distanceThreshold)
-            {
-                yield return null;
-            }
-
-            if (obstacle_clone != null)
-            {
-                Destroy(obstacle_clone);
-            }
 
             spawn = true;
         }
